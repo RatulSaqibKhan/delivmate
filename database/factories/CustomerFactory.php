@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
+ */
+class CustomerFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        $user = User::inRandomOrder()->first() ?? User::factory()->create();
+        
+        return [
+            'user_id' => $user->id,
+            'phone' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'lat' => $this->faker->latitude(23.70, 23.90),
+            'lng' => $this->faker->longitude(90.30, 90.50),
+        ];
+    }
+}
