@@ -24,7 +24,7 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function zones()
+    public function deliveryZones()
     {
         return $this->hasMany(DeliveryZone::class);
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryZone extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'delivery_zones';
 
     protected $fillable = [
@@ -24,7 +24,7 @@ class DeliveryZone extends Model
         'bbox_max_lng',
     ];
 
-     /**
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -36,7 +36,8 @@ class DeliveryZone extends Model
         ];
     }
 
-    public function restaurant() {
+    public function restaurant()
+    {
         return $this->belongsTo(Restaurant::class);
     }
 }
