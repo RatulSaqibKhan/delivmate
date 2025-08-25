@@ -12,7 +12,6 @@ class DeliveryMan extends Model
     protected $table = 'delivery_men';
 
     protected $fillable = [
-        'name',
         'user_id',
         'phone',
         'is_available',

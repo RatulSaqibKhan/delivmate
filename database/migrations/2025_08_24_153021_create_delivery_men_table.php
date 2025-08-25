@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('delivery_men', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('phone')->unique();
             $table->boolean('is_available')->default(true);

@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserRole;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,26 +22,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::factory(4)->create();
-        User::factory(10)->create();
+        if (config('app.env') == "local") {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            // Roles
+            $this->call(RoleSeeder::class);
+            // Admin User
+            $this->call(UserSeeder::class);
+            // Customers
+            $this->call(CustomerSeeder::class);
 
-         // Customers
-        Customer::factory(20)->create();
+            // Delivery Men
+            $this->call(DeliveryManSeeder::class);
 
-        // Delivery Men
-        DeliveryMan::factory(15)->create();
+            // Restaurants
+            $this->call(RestaurantSeeder::class);
 
-        // Restaurants
-        Restaurant::factory(25)->create()->each(function ($restaurant) {
-            DeliveryZone::factory(2)->create(['restaurant_id' => $restaurant->id]);
-        });
+            // Orders
+            Order::factory(50)->create()->each(function ($order) {
+                // Assignment attempts for each order
+                DeliveryAssignmentAttempt::factory(2)->create(['order_id' => $order->id]);
+            });
 
-        // Orders
-        Order::factory(50)->create()->each(function ($order) {
-            // Assignment attempts for each order
-            DeliveryAssignmentAttempt::factory(2)->create(['order_id' => $order->id]);
-        });
-
-        UserRole::factory(30)->create();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
     }
 }

@@ -20,7 +20,6 @@ class DeliveryManFactory extends Factory
         $user = User::inRandomOrder()->first() ?? User::factory()->create();
 
         return [
-            'name' => $this->faker->name,
             'user_id' => $user->id,
             'phone' => $this->faker->phoneNumber,
             'status' => $this->faker->randomElement(['offline','available','reserved','busy']),
